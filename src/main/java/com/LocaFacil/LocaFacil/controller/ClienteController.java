@@ -11,10 +11,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.LocaFacil.LocaFacil.model.Cliente;
+import com.LocaFacil.LocaFacil.paginacao.ConfigPagina;
+import com.LocaFacil.LocaFacil.paginacao.Pagina;
 import com.LocaFacil.LocaFacil.service.ClienteService;
 
 @RequestMapping("/clientes")
@@ -39,6 +42,13 @@ public class ClienteController {
 	public ResponseEntity<Cliente> buscarPorId(@PathVariable Long id) throws SQLException {
 		Cliente cliente = clienteService.buscarPorId(id).get();
 		
+		return ResponseEntity.ok(cliente);
+	}
+	
+	@GetMapping("/listarTodos")
+	public ResponseEntity<Pagina<Cliente>> listarTodos(@RequestParam int tamanho, @RequestParam int numeroDaPagina){
+		ConfigPagina configPagina = new ConfigPagina(tamanho, numeroDaPagina);
+		Pagina<Cliente> cliente = clienteService.listarTodos(configPagina);
 		return ResponseEntity.ok(cliente);
 	}
 }
