@@ -63,6 +63,5 @@ public class Cliente {
 	public void setStatus(boolean status) {
 		this.status = status;
 	}
-	
-	
+
 }

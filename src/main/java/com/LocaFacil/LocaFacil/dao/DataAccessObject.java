@@ -22,4 +22,8 @@ public abstract class DataAccessObject<T> {
 	public abstract Optional<T> buscarPorId(Long id);
 
 	public abstract List<T> listarTodos(ConfigPagina configPagina);
+	
+	public abstract void atualizar(T Object, Long id);
+	
+	public abstract void deletar(Long id);
 }

@@ -17,4 +17,8 @@ public interface ClienteService {
 	Optional<Cliente> buscarPorId(Long id);
 	
 	Pagina<Cliente> listarTodos(ConfigPagina configPagina);
+	
+	void atualizar(Cliente cliente, Long id);
+	
+	void deletar(Long id);
 }

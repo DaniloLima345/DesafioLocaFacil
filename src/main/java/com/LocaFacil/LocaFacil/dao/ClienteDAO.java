@@ -68,4 +68,40 @@ public class ClienteDAO extends DataAccessObject<Cliente> {
 			}
 		}, new Object[] { configPagina.getPrimeiroElemento(), configPagina.getTamanho() });
 	}
+
+	@Override
+	public void atualizar(Cliente cliente, Long id) {
+
+		Cliente clienteAntigo = buscarPorId(id).get();
+		
+		StringBuilder sqlBuilder = new StringBuilder();
+		sqlBuilder.append("UPDATE CLIENTE SET ");
+
+		if (cliente.getNome() != null)
+			if(!clienteAntigo.getNome().equals(cliente.getNome()))
+				sqlBuilder.append("NOME = '" + cliente.getNome() + "'");
+			else
+				throw new RuntimeException();
+		if (cliente.getCpf() != null)
+			if(!clienteAntigo.getCpf().equals(cliente.getCpf()) )
+				sqlBuilder.append("CPF = '" + cliente.getCpf() + "'");
+			else
+				throw new RuntimeException();
+		if (cliente.getDataNascimento() != null)
+			if(!clienteAntigo.getDataNascimento().equals(cliente.getDataNascimento()))
+				sqlBuilder.append("DATANASCIMENTO = '" + cliente.getDataNascimento() + "'");
+			else
+				throw new RuntimeException();
+
+		sqlBuilder.append("WHERE ID = " + id);
+
+		String sql = sqlBuilder.toString();
+		jdbcTemplate.update(sql);
+	}
+
+	public void deletar(Long id) {
+		String sql = "DELETE FROM CLIENTE WHERE ID = ?";
+
+		jdbcTemplate.update(sql, new Object[] { id });
+	}
 }

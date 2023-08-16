@@ -36,4 +36,13 @@ public class ClienteServiceImpl implements ClienteService {
 		return pagina;
 	}
 
+	@Override
+	public void atualizar(Cliente cliente, Long id) {
+		clienteDAO.atualizar(cliente, id);
+	}
+
+	@Override
+	public void deletar(Long id) {
+		clienteDAO.deletar(id);
+	}
 }
